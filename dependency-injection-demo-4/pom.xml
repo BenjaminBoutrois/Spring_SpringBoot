@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<!-- =============================================================================================== -->
+	<!-- (01.) INFORMATIONS SUR LE PROJET ============================================================== -->
+	<!-- =============================================================================================== -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.4</version>
+	</parent>
+
+	<groupId>com.objis.demo</groupId>
+	<artifactId>dependency_injection</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>dependency-injection-demo-4</name>
+	<description>Dependency-injection-demo-4</description>
+	<packaging>jar</packaging>
+
+	<!-- =============================================================================================== -->
+	<!-- (02.) PROPRIETES DU PROJET ==================================================================== -->
+	<!-- =============================================================================================== -->
+
+	<properties>
+		<java.version>11</java.version>
+		<Java.compiler.source>11</Java.compiler.source>
+		<Java.compiler.target>11</Java.compiler.target>
+	</properties>
+
+	<!-- =============================================================================================== -->
+	<!-- (03.) DEPENDANCES DU PROJET =================================================================== -->
+	<!-- =============================================================================================== -->
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<!-- MYSQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- HIBERNATE -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+
+
+	</dependencies>
+	<!-- =============================================================================================== -->
+	<!-- (04.) GENERATION DE L'EXECUTABLE DU PROJET ==================================================== -->
+	<!-- =============================================================================================== -->
+
+	<build>
+		<!-- ================================================================================== -->
+		<!-- (04.01.) NOM DU FICHIER EXECUTABLE =============================================== -->
+		<!-- ================================================================================== -->
+		<finalName>dependency-injection-demo</finalName>
+
+		<!-- ================================================================================== -->
+		<!-- (04.02.) COMPOSANTS ENFICHABLES (PLUG-INS) ======================================= -->
+		<!-- ================================================================================== -->
+
+		<plugins>
+			<!-- ================================================================================== -->
+			<!-- (04.02.01.) PLUG-IN DE CONFIGURATION DU COMPILATEUR ============================== -->
+			<!-- ================================================================================== -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<!-- ================================================================================== -->
+			<!-- (04.02.02.) PLUG-IN DE GENERATION D'UN JAR ======================================= -->
+			<!-- ================================================================================== -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>com.objis.demo.ApplicationXmlConfig</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<!-- ================================================================================= -->
+			<!-- (04.02.03.) PLUG-IN D'EMPAQUETAGE DES DEPENDANCES =============================== -->
+			<!-- ================================================================================= -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- ================================================================================= -->
+			<!-- (04.02.04.) PLUG-IN D'EXECUTION DU FICHIER EXECUTABLE =========================== -->
+			<!-- ================================================================================= -->
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.4.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>com.objis.demo.ApplicationAnnotationConfig</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
